@@ -1,13 +1,32 @@
 import React from 'react'
+// import { useParams } from 'react-router-dom';
 import Header from './Header'
 import Title from '../shared/Title';
 import Grid from '@mui/material/Grid'
 
 import ChatList from '../specific/ChatList';
+import { sampleChats } from '../../constants/sampleData';
+import Profile from '../specific/Profile.jsx';
 
+
+// const AppLayout = () => (WrappedComponent) => {
+// const AppLayout = (WrappedComponent) => {
+//     return (props) => {
 
 const AppLayout = () => (WrappedComponent) => {
+    // const AppLayoutComponent = (props) => {
+
     return (props) => {
+
+        // TODO: check
+        // const params = useParams();
+        // const chatId = params.chatId;
+
+        const handleDeleteChat = (e, _id, groupChat) => {
+            e.preventDefault();
+            console.log("Delete Chat", _id, groupChat);
+        }
+
         return (
             <>
                 <Title />
@@ -21,7 +40,9 @@ const AppLayout = () => (WrappedComponent) => {
                         sx={{ display: { xs: "none", sm: "block" } }}
                         height={"100%"}
                     >
-                        <ChatList />
+                        <ChatList chats={sampleChats} chatId={"1"} newMessagesAlert={[{ chatId: "1", count: 4 }]} onlineUsers={["1", "2"]} handleDeleteChat={handleDeleteChat} />
+                        {/* // TODO: check */}
+                        {/* <ChatList chats={sampleChats} chatId={chatId} newMessagesAlert={[{ chatId, count: 4 }]} onlineUsers={["1", "2"]} /> */}
                     </Grid>
                     <Grid item xs={12} sm={8} md={5} lg={6} height={"100%"}>
                         <WrappedComponent {...props} />
@@ -32,7 +53,7 @@ const AppLayout = () => (WrappedComponent) => {
                         sx={{ display: { xs: "none", md: "block" }, padding: "2rem", bgcolor: "rgba(0, 0, 0, 0.85)" }}
                         height={"100%"}
                     >
-                        Three
+                    <Profile />
                     </Grid >
                 </Grid >
 
@@ -40,6 +61,7 @@ const AppLayout = () => (WrappedComponent) => {
             </>
         )
     }
+    // return AppLayoutComponent;
 }
 
 export default AppLayout
